@@ -39,7 +39,7 @@ it.mijorus.smile
 git clone https://github.com/Lucashdml/dotfiles
 ```
 - Go into the dotfiles directory on your home with cd and use 
-`stow */`
+`stow dotfiles/`
 
 - Edit `~/.config/hypr/hyprland.conf` to only include `source = ~/.config/dotfiles/hyprland/hyprland.conf`
 ```bash
