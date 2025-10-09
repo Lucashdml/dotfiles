@@ -27,7 +27,7 @@ it.mijorus.smile
 
 ## Installation
 
-- Clone this repo in your home directory
+- Clone this repo in your home directory (But i do recommend you do a fork so you can start tinkering to your liking)
 
 ```bash
 git clone https://github.com/Lucashdml/dotfiles
