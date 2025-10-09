@@ -26,8 +26,6 @@ sf() {
 
 export BAT_THEME="gruvbox-dark"
 export EDITOR="nvim"
-export TERMINAL="kitty"
-
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
