@@ -1,11 +1,5 @@
 # **`Lucashdml's` Hyprland Dotfiles**
 
-## Screenshots
-![1](screenshots/1.png)
-![2](screenshots/2.png)
-![3](screenshots/3.png)
-![4](screenshots/4.png)
-
 > [!WARNING]
 > This is a fork of ``https://github.com/shub39/dotfiles`` , I restructured the directories and files to use it with gnu stow and did some minor changes to my liking, 
 ## Packages
@@ -39,12 +33,11 @@ it.mijorus.smile
 git clone https://github.com/Lucashdml/dotfiles
 ```
 - Go into the dotfiles directory on your home with cd and use 
-`stow dotfiles/`
+`stow .`
 
-- Edit `~/.config/hypr/hyprland.conf` to only include `source = ~/.config/dotfiles/hyprland/hyprland.conf`
-```bash
-echo 'source = ~/.config/dotfiles/hyprland/hyprland.conf' > ~/.config/hypr/hyprland.conf
-```
+- Make sure you don't have conflicting files/directories ( like already having a ``.config/hypr`` )
+
+- Instead of just deleting it do a backup renaming it ``mv .config/hypr .config/hyprBak``
 
 - Reboot
 
