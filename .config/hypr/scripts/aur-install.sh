@@ -20,7 +20,6 @@ if [[ -n "$pkg_names" ]]; then
   # Convert newline-separated selections to space-separated for yay
   echo "$pkg_names" | tr '\n' ' ' | xargs yay -S --noconfirm
   sudo updatedb
-  show-done
 fi
 
 # --- Pause before exiting ---
