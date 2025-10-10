@@ -10,14 +10,14 @@ Needed
 ttf-jetbrains-mono ttf-jetbrains-mono-nerd hyprpicker hyprpaper neovim polkit-gnome nwg-look noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk swaync waybar hyprlock gnome-terminal chromium cava scrcpy nemo rofi-wayland cmus copyq flatpak fastfetch imagemagick exa stow starship yazi
 ```
 
-My preferred extras
+Preferred extras
 ```
 mpv loupe gnome-boxes gnome-disk-utility gnome-system-monitor nemo-fileroller
 ```
 
 ### AUR
 ```
-gruvbox-dark-icons-gtk gruvbox-material-gtk-theme-git hyprshot wlogout zen-browser-bin hyprsunset
+gruvbox-dark-icons-gtk gruvbox-material-gtk-theme-git hyprshot wlogout zen-browser-bin hyprsunset rofi-bluetooth-git
 ```
 
 ### Flatpak

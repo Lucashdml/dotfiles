@@ -28,6 +28,7 @@
 	"temperature", 
 	"memory",
 	"custom/swaync",
+   "bluetooth",
 	"pulseaudio"
 	]
 }
