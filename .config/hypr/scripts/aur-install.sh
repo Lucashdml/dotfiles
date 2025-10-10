@@ -26,7 +26,6 @@ fi
 # This keeps the terminal window open until the user presses a key.
 # It uses 'gum style' to show a styled message and 'read' to wait for a key press.
 echo
-gum style --bold --padding "0 1" "󰣇 Done! Press any key to close..."
+gum style --foreground "#b8bb26" --bold --padding "0 1" "󰣇 Done! Press any key to close..."
 # Wait for a single key press (-n 1) silently (-s) before exiting.
 read -n 1 -s
-
