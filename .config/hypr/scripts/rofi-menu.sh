@@ -15,7 +15,7 @@ TERMINAL="kitty"
 # --- Rofi Menu ---
 # Define the options that will be displayed in the Rofi menu.
 # The '\n' creates a new line for each menu item.
-options=" Install Packages(Pacman)\n Install Packages(Yay)\n Uninstall Packages"
+options=" Install Packages(Pacman)\n Install Packages(Yay)\n Uninstall Packages\n󰐥 System"
 
 # Display the Rofi menu and capture the user's choice.
 # -dmenu: Run rofi in dmenu mode (dynamic menu).
@@ -39,5 +39,9 @@ case "$chosen" in
     " Uninstall Packages")
         # Launch the uninstall script with the same settings.
         $TERMINAL --class "rofi-launcher" -e pacman-uninstall.sh
+        ;;
+    "󰐥 System")
+        # Launch the uninstall script with the same settings.
+        wlogout &
         ;;
 esac

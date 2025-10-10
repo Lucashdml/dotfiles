@@ -17,7 +17,7 @@ mpv loupe gnome-boxes gnome-disk-utility gnome-system-monitor nemo-fileroller
 
 ### AUR
 ```
-gruvbox-dark-icons-gtk gruvbox-material-gtk-theme-git hyprshot wlogout zen-browser-bin hyprsunset rofi-bluetooth-git
+gruvbox-dark-icons-gtk gruvbox-material-gtk-theme-git hyprshot wlogout zen-browser-bin hyprsunset rofi-bluetooth-git swayosd-git
 ```
 
 ### Flatpak
