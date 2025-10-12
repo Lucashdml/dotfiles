@@ -24,6 +24,30 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 
+# Functions
+#
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+sd() {
+	cd "$(fd --type d --hidden --exclude .git --exclude .nvm --exclude node_modules --exclude .vscode --exclude .wine --exclude snap --exclude Code --exclude .git --exclude thorium --exclude .nvm --exclude discord --exclude pgadmin4 --exclude .steam --exclude .npm --exclude node_modules | fzf )"
+	nvim
+}
+sf() {
+  local file
+  file=$(fd --type f --hidden \
+    --exclude .git --exclude .nvm --exclude node_modules \
+    --exclude .vscode --exclude .wine --exclude snap \
+    --exclude Code --exclude thorium --exclude discord \
+    --exclude pgadmin4 --exclude .steam --exclude .npm \
+    --exclude .themes | fzf --preview 'bat --color=always --style=header,grid --line-range :500 {}') &&
+  [ -n "$file" ] && nvim "$file"
+}
 
 # Keybinds
 bindkey -e
