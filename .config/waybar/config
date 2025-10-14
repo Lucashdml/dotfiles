@@ -23,12 +23,11 @@
 	], 
 
 "modules-right": [
-	"wlr/taskbar",
 	"cpu", 
 	"temperature", 
 	"memory",
 	"custom/swaync",
-   "bluetooth",
-	"pulseaudio"
+	"pulseaudio",
+   "group/tray-expander"
 	]
 }

@@ -112,6 +112,18 @@
 	"on-click": "rofi-bluetooth"
 },
 
+ "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": " ",
+    "tooltip": false
+  },
   "pulseaudio": {
     "format": " {volume}% {icon} ",
     "format-bluetooth": " [BT] {volume}% {icon} ",
@@ -183,7 +195,6 @@
       "Zen Browser"
     ]
   },
-
   "custom/cava": {
     "exec": "~/.config/hypr/scripts/waybarCava.sh",
     "format": "{}",
