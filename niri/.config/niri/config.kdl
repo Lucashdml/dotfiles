@@ -72,7 +72,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -340,6 +340,15 @@ window-rule {
     default-column-width { fixed 800; }
     default-window-height { fixed 600; }
 }
+
+window-rule {
+    match app-id="zen" title="Picture-in-Picture"
+    opacity 1.0
+    open-floating true
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
+}
+
 
 window-rule {
     draw-border-with-background false
