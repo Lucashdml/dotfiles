@@ -7,7 +7,7 @@
 ### Official Repo
 Needed
 ```
-ttf-jetbrains-mono ttf-jetbrains-mono-nerd hyprpicker hyprpaper neovim polkit-gnome nwg-look noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk swaync waybar hyprlock gnome-terminal chromium cava scrcpy nemo rofi-wayland cmus copyq flatpak fastfetch imagemagick exa stow starship yazi gum zsh wiremix
+ttf-jetbrains-mono ttf-jetbrains-mono-nerd hyprpicker hyprpaper neovim polkit-gnome nwg-look noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk swaync waybar hyprlock gnome-terminal chromium cava scrcpy nemo rofi-wayland cmus copyq flatpak fastfetch imagemagick exa stow starship yazi gum zsh wiremix xwayland-satellite
 ```
 
 Preferred extras
@@ -33,7 +33,7 @@ it.mijorus.smile
 git clone https://github.com/Lucashdml/dotfiles
 ```
 - Go into the dotfiles directory on your home with cd and use 
-`stow .`
+`stow */`
 
 - Make sure you don't have conflicting files/directories ( like already having a ``.config/hypr`` )
 
