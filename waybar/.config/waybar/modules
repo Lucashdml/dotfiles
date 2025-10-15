@@ -1,4 +1,11 @@
 {
+  "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "default": "( )",
+            "active": "[󰣇]",
+        }
+    },
   "hyprland/workspaces": {
     "active-only": false,
     "all-outputs": true,
@@ -11,9 +18,6 @@
       "1": [],
       "2": [],
       "3": [],
-      "4": [],
-      "5": [],
-
     },
     "format-icons": {
       "active": "[󰣇]",
