@@ -112,10 +112,6 @@ input {
     position x=1280 y=0
 }
 
-layer-rule {
-    match namespace="^wallpaper$"
-    place-within-backdrop true
-}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
@@ -170,7 +166,7 @@ layout {
         //off
 
         // How many logical pixels the ring extends out from the windows.
-        width 2
+        width 3
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -338,7 +334,16 @@ window-rule {
 }
 
 window-rule {
+    match app-id="kitty" title="WireMix"
+    opacity 1.0
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+}
+
+window-rule {
     draw-border-with-background false
+    opacity 1.0
 }
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
@@ -359,7 +364,16 @@ window-rule {
     match app-id="zen"
     opacity 1.0
     draw-border-with-background false
+    open-maximized true
 }
+
+window-rule {
+    match app-id="steam"
+    opacity 1.0
+    draw-border-with-background false
+    open-maximized true
+}
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -391,6 +405,11 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
+// Layer Rules
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
 
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -410,7 +429,7 @@ binds {
     Mod+Z hotkey-overlay-title="Opens zen browser" { spawn "zen-browser"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn  "rofi" "-show" "drun" "-show-icons"; }
-    Mod+Alt+Space hotkey-overlay-title="Run my scripts on rofi" { spawn-sh "~/.config/hypr/scripts/rofi-menu.sh"; }
+    Mod+Alt+Space hotkey-overlay-title="Run my scripts on rofi" { spawn-sh "~/.local/bin/scripts/rofi-menu.sh"; }
     Mod+N hotkey-overlay-title="Opens nemo" { spawn "nemo"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
      Mod+M hotkey-overlay-title="Opens wlogout" {

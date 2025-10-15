@@ -56,7 +56,7 @@ bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
 # Exports
-export PATH="$HOME/dotfiles/.config/hypr/scripts/:$PATH"
+export PATH="$HOME/dotfiles/hypr/.config/hypr/scripts/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
 export EDITOR="nvim"
