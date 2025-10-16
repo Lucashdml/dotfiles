@@ -349,6 +349,13 @@ window-rule {
     default-window-height { fixed 270; }
 }
 
+window-rule {
+    match app-id="rofi-launcher"
+    opacity 1.0
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+}
 
 window-rule {
     draw-border-with-background false
@@ -470,8 +477,8 @@ binds {
     Mod+C repeat=false { close-window; }
 
     Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+Up    { focus-window-or-workspace-up; }
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
     // Mod+J     { focus-window-down; }
