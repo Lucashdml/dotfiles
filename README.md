@@ -39,7 +39,7 @@ git clone https://github.com/Lucashdml/dotfiles
 
 - Instead of just deleting it do a backup renaming it ``mv .config/hypr .config/hyprBak``
 
-- Reboot
+- You need to reboot
 
 ## Extras
 
