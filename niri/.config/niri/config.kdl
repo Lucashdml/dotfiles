@@ -10,6 +10,10 @@ output "HDMI-A-1" {
 mode "1920x1080"
     scale 1.0
 }
+cursor {
+    xcursor-theme "Capitaine Cursors (Gruvbox)"
+    xcursor-size 24
+}
 input {
     mod-key "Super";
     keyboard {
@@ -18,8 +22,8 @@ input {
             // For more information, see xkeyboard-config(7).
 
             // For example:
-            layout "br"
-            model "abnt2"
+            layout "us"
+            variant "intl"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
 
             // If this section is empty, niri will fetch xkb settings
@@ -282,6 +286,7 @@ spawn-at-startup "swaync"
 spawn-sh-at-startup "swaybg -i ~/.config/wallpapers/gruvbox1.png -m fill"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-at-startup "lxqt-policykit-agent"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
