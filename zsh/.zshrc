@@ -23,6 +23,7 @@ zinit cdreplay -q
 alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
+alias ps3d='/home/lucash/ps3dec/ps3dec-2.0.1/target/release/ps3decrs'
 
 # Functions
 #

@@ -143,7 +143,7 @@
       "ignored-sinks": ["Easy Effects Sink"]
     },
     "scroll-step": 5.0,
-    "on-click": "kitty -c ~/.config/kitty/kitty.conf --title=WireMix sh -c 'wiremix'",
+    "on-click": "kitty -c ~/.config/kitty/kitty.conf --title=WireMix -o 'wayland_titlebar_decorations=server' sh -c 'wiremix'",
     "tooltip-format": "{icon} {desc} | {volume}%",
     "smooth-scrolling-threshold": 1
   },
