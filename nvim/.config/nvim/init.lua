@@ -387,94 +387,6 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = true,
-    keys = {
-      vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { desc = 'nvimtree toggle window' }),
-    },
-    dependencies = {
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-    },
-    config = function()
-      require('nvim-tree').setup {
-        filters = {
-          dotfiles = false,
-        },
-        disable_netrw = true,
-        hijack_netrw = true,
-        hijack_cursor = true,
-        hijack_unnamed_buffer_when_opening = false,
-        sync_root_with_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_root = false,
-        },
-        view = {
-          adaptive_size = false,
-          side = 'left',
-          width = 30,
-          preserve_window_proportions = true,
-        },
-        git = {
-          enable = true,
-          ignore = true,
-        },
-        filesystem_watchers = {
-          enable = true,
-        },
-        actions = {
-          open_file = {
-            resize_window = true,
-          },
-        },
-        renderer = {
-          root_folder_label = false,
-          highlight_git = true,
-          highlight_opened_files = 'none',
-
-          indent_markers = {
-            enable = true,
-          },
-
-          icons = {
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            },
-
-            glyphs = {
-              default = '󰈚',
-              symlink = '',
-              folder = {
-                default = '',
-                empty = '',
-                empty_open = '',
-                open = '',
-                symlink = '',
-                symlink_open = '',
-                arrow_open = '',
-                arrow_closed = '',
-              },
-              git = {
-                unstaged = '✗',
-                staged = '✓',
-                unmerged = '',
-                renamed = '➜',
-                untracked = '★',
-                deleted = '',
-                ignored = '◌',
-              },
-            },
-          },
-        },
-      }
-    end,
-  },
-
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -783,7 +695,9 @@ require('lazy').setup({
           -- capabilities = {},
           settings = {
             Lua = {
-              diagnostics = { globals = "vim"},
+              diagnostics = {
+                globals = { 'vim' },
+              },
               completion = {
                 callSnippet = 'Replace',
               },
@@ -806,7 +720,9 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua',
+        'gopls',
+        'goimports',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -864,6 +780,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         ruby = { 'rubocop' },
+        go = { 'goimports'},
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1109,7 +1026,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'go', 'gomod', 'gosum'},
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {

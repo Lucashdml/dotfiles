@@ -283,7 +283,7 @@ spawn-at-startup "waybar"
 spawn-at-startup "uwsm" "app" "--" "swayosd-server"
 spawn-at-startup "copyq" "--start-server"
 spawn-at-startup "swaync"
-spawn-sh-at-startup "swaybg -i ~/.config/wallpapers/gruvbox1.png -m fill"
+spawn-sh-at-startup "swaybg -i ~/.config/wallpapers/gruvbox2.jpg -m fill"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 spawn-at-startup "lxqt-policykit-agent"

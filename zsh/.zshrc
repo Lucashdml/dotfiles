@@ -61,6 +61,7 @@ export PATH="$HOME/dotfiles/hypr/.config/hypr/scripts/:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
 export EDITOR="nvim"
+export PATH="$HOME/.govm/shim:$PATH"
 
 # History
 HISTSIZE=5000
