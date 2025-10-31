@@ -20,7 +20,8 @@ autoload -U compinit && compinit
 zinit cdreplay -q
 
 # Aliases
-alias ls='ls --color'
+alias ls='exa --icons --group-directories-first'
+alias la='exa -a --icons --group-directories-first'
 alias vim='nvim'
 alias c='clear'
 alias ps3d='/home/lucash/ps3dec/ps3dec-2.0.1/target/release/ps3decrs'
@@ -28,27 +29,33 @@ alias ps3d='/home/lucash/ps3dec/ps3dec-2.0.1/target/release/ps3decrs'
 # Functions
 #
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
 }
 
 sd() {
-	cd "$(fd --type d --hidden --exclude .git --exclude .nvm --exclude node_modules --exclude .vscode --exclude .wine --exclude snap --exclude Code --exclude .git --exclude thorium --exclude .nvm --exclude discord --exclude pgadmin4 --exclude .steam --exclude .npm --exclude node_modules | fzf )"
-	nvim
+  cd "$(fd --type d --hidden --exclude .git --exclude .nvm --exclude node_modules --exclude .vscode --exclude .wine --exclude snap --exclude Code --exclude .git --exclude thorium --exclude .nvm --exclude discord --exclude pgadmin4 --exclude .steam --exclude .npm --exclude node_modules | fzf )"
+  nvim
 }
 sf() {
   local file
   file=$(fd --type f --hidden \
-    --exclude .git --exclude .nvm --exclude node_modules \
-    --exclude .vscode --exclude .wine --exclude snap \
-    --exclude Code --exclude thorium --exclude discord \
-    --exclude pgadmin4 --exclude .steam --exclude .npm \
-    --exclude .themes | fzf --preview 'bat --color=always --style=header,grid --line-range :500 {}') &&
+  --exclude .git --exclude .nvm --exclude node_modules \
+  --exclude .vscode --exclude .wine --exclude snap \
+  --exclude Code --exclude thorium --exclude discord \
+  --exclude pgadmin4 --exclude .steam --exclude .npm \
+  --exclude .themes | fzf --preview 'bat --color=always --style=header,grid --line-range :500 {}') &&
   [ -n "$file" ] && nvim "$file"
 }
+
+function ls_after_cd() {
+  exa --icons --group-directories-first
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd ls_after_cd
 
 # Keybinds
 bindkey -e
@@ -62,6 +69,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
 export EDITOR="nvim"
 export PATH="$HOME/.govm/shim:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # History
 HISTSIZE=5000
