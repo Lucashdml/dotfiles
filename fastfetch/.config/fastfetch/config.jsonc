@@ -10,13 +10,8 @@
     },
     "modules": [
         {
-            "type": "host",
-            "key": "╭─󰌢",
-            "keyColor": "green"
-        },
-        {
             "type": "cpu",
-            "key": "├─󰻠",
+            "key": "┌─󰻠",
             "keyColor": "green"
         },
         {
@@ -31,13 +26,13 @@
         },
         {
             "type": "display",
-            "key": "╰─󰍹",
+            "key": "└─󰍹",
             "keyColor": "green"
         },
         "break",
         {
             "type": "title",
-            "key": "╭─",
+            "key": "┌─",
             "format": "{1}@{2}",
             "keyColor": "blue"
         },
@@ -58,8 +53,13 @@
             "keyColor": "blue"
         },
         {
+            "type": "wm",
+            "key": "├─",
+            "keyColor": "blue"
+        },
+        {
             "type": "uptime",
-            "key": "╰─󰅐",
+            "key": "└─󰅐",
             "keyColor": "blue"
         }
     ]
