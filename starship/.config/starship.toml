@@ -1,6 +1,6 @@
 format = """
-[╭─](white) $os in $directory$package$java$python$lua$ruby$nodejs$git_branch$git_status
-[╰─](white)$character """
+[┌─](white) $os in $directory$package$java$python$lua$ruby$nodejs$git_branch$git_status
+[└─](white)$character """
 
 palette = 'gruvbox_dark'
 
