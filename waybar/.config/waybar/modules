@@ -2,8 +2,8 @@
   "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "default": "( )",
-            "active": "[󰣇]",
+            "default": "(  )",
+            "active": "[ 󰣇 ]",
         }
     },
   "hyprland/workspaces": {

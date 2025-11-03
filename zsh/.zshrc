@@ -25,9 +25,10 @@ alias la='exa -a --icons --group-directories-first'
 alias vim='nvim'
 alias c='clear'
 alias ps3d='/home/lucash/ps3dec/ps3dec-2.0.1/target/release/ps3decrs'
+alias tm='tmux attach || tmux new-session'
 
 # Functions
-#
+
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
