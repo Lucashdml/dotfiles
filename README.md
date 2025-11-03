@@ -7,7 +7,7 @@
 ### Official Repo
 Needed
 ```
-ttf-jetbrains-mono ttf-jetbrains-mono-nerd hyprpicker hyprpaper neovim polkit-gnome nwg-look noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk swaync waybar hyprlock gnome-terminal chromium cava scrcpy nemo rofi-wayland cmus copyq flatpak fastfetch imagemagick exa stow starship yazi gum zsh wiremix xwayland-satellite
+ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-cascadia-code-nerd hyprpicker hyprpaper neovim polkit-gnome nwg-look noto-fonts noto-fonts-emoji noto-fonts-extra noto-fonts-cjk swaync waybar hyprlock gnome-terminal chromium cava scrcpy nemo rofi-wayland cmus copyq flatpak fastfetch imagemagick exa stow starship yazi gum zsh wiremix xwayland-satellite
 ```
 
 Preferred extras
