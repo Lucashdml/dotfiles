@@ -334,9 +334,8 @@ window-rule {
 }
 
 window-rule {
-    match app-id="wlroots"
-    open-fullscreen true
-    opacity 1.0
+    match app-id=""
+    open-maximized true
 }
 
 window-rule {
@@ -391,6 +390,18 @@ window-rule {
     match app-id="zen"
     opacity 1.0
     draw-border-with-background false
+    open-maximized true
+}
+
+window-rule {
+    match app-id="steam"
+    opacity 1.0
+    open-maximized true
+}
+
+window-rule {
+    match app-id="steam"
+    opacity 1.0
     open-maximized true
 }
 
@@ -481,8 +492,8 @@ binds {
     // XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
 // Volume com swayosd
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume +1"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume -1"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume +5"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "swayosd-client --output-volume -5"; }
     XF86AudioMute          allow-when-locked=true { spawn-sh "swayosd-client --output-volume mute-toggle"; }
     XF86AudioMicMute       allow-when-locked=true { spawn-sh "swayosd-client --input-volume mute-toggle"; }
 
@@ -641,18 +652,6 @@ binds {
     Mod+Ctrl+4 { move-column-to-workspace 4; }
     Mod+Ctrl+5 { move-column-to-workspace 5; }
     Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Ctrl+1 { move-window-to-workspace 1; }
-
-    // Switches focus between the current and the previous workspace.
-    Mod+Tab { focus-workspace-previous; }
-
-    // The following binds move the focused window in and out of a column.
-    // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
