@@ -334,8 +334,20 @@ window-rule {
 }
 
 window-rule {
-    match app-id=""
-    open-maximized true
+    match title="Warframe"
+    opacity 1.0
+}
+
+window-rule {
+    match title="Exiled Exchange"
+    open-floating true
+    default-column-width { proportion 0.8; }
+    default-window-height { proportion 0.8; }
+}
+
+window-rule {
+    match app-id="Sidekick"
+    open-floating false
 }
 
 window-rule {
