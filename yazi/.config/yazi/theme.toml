@@ -1,0 +1,13 @@
+# [flavor]
+# dark = "gruvbox-dark"
+
+[mgr]
+border = { type = "plain" }
+
+[status]
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
+
+[indicator]
+padding = { open = "█", close = "█" }
+ 

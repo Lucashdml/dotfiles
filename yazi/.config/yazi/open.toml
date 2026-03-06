@@ -1,0 +1,4 @@
+[[opener]]
+mime = "image/*"
+exec = "imv $*"
+block = true
