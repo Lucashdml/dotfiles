@@ -56,8 +56,8 @@ input {
     mouse {
         // off
         // natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
+        accel-speed 0.0
+        accel-profile "flat"
         // scroll-method "no-scroll"
     }
 
@@ -284,16 +284,16 @@ spawn-at-startup "waybar"
 spawn-at-startup "uwsm" "app" "--" "swayosd-server"
 spawn-at-startup "copyq" "--start-server"
 spawn-at-startup "swaync"
-spawn-sh-at-startup "swaybg -i ~/.config/wallpapers/gruvbox1.png -m fill"
+spawn-sh-at-startup "swaybg -i ~/.config/wallpapers/gruvbox2.jpg -m fill"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 spawn-at-startup "lxqt-policykit-agent"
-
+spawn-at-startup "sh" "-c" "sleep 3 && amixer -c Generic sset Front unmute"
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
 }
-
+spawn-at-startup "~/.local/bin/scripts/autostart.sh"
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
@@ -326,6 +326,32 @@ animations {
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
+
+blur {
+    passes 3
+    offset 3.0
+    noise 0.03
+    saturation 0.750
+}
+
+window-rule {
+    match app-id=r#"^taskbar-hero$"# title="TBH: Task Bar Hero"
+    
+    opacity 0.50
+    open-floating true
+    geometry-corner-radius 0
+    
+    // É assim que você desativa as bordas no Niri:
+    border {
+        off
+    }
+
+    // Opcional: remove a sombra que o Niri bota em janelas flutuantes
+    shadow {
+        off
+    }
+}
+
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
@@ -360,6 +386,9 @@ window-rule {
     match app-id="kitty" title="WireMix"
     opacity 1.0
     open-floating true
+    background-effect {
+        blur true
+    }
     default-column-width { fixed 800; }
     default-window-height { fixed 600; }
 }

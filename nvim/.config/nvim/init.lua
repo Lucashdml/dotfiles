@@ -159,8 +159,11 @@ vim.opt.list = false
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Show which line your cursor is on
-vim.opt.cursorline = false
+-- -- Show which line your cursor is on
+-- vim.opt.cursorline = false
+--
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = 'number' -- Destaca APENAS a coluna do número
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -389,7 +392,10 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
+      {
+        'saghen/blink.cmp',
+        dependencies = { 'saghen/blink.lib' },
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
