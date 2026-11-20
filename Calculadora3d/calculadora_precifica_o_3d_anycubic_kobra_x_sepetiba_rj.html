@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Precificação 3D — Anycubic Kobra X | Oficina Sepetiba/RJ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            gb: {
+              bg: '#282828',
+              bg0: '#1d2021',
+              card: '#32302f',
+              cardHover: '#3c3836',
+              border: '#504945',
+              muted: '#928374',
+              fg: '#ebdbb2',
+              fgDim: '#d5c4a1',
+              orange: '#fe8019',
+              yellow: '#fabd2f',
+              green: '#b8bb26',
+              blue: '#83a598',
+              red: '#fb4934',
+              purple: '#d3869b',
+              aqua: '#8ec07c',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #282828;
+      color: #ebdbb2;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom scrollbar Gruvbox */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1d2021;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #504945;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #665c54;
+    }
+    /* Sharp industrial range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #1d2021;
+      border: 1px solid #504945;
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #fe8019;
+      border: 1px solid #ebdbb2;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #fabd2f;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: #fe8019;
+      border: 1px solid #ebdbb2;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    /* Remove number input arrows for cleaner look */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Toast Notification Banner -->
+  <div id="toast" class="fixed bottom-4 right-4 z-50 hidden items-center gap-2 bg-[#1d2021] border border-[#b8bb26] text-[#ebdbb2] px-4 py-3 rounded-[3px] shadow-lg font-mono text-xs">
+    <span class="w-2 h-2 bg-[#b8bb26] inline-block"></span>
+    <span id="toast-msg">Ação concluída!</span>
+  </div>
+
+  <!-- Top Header Bar -->
+  <header class="bg-[#1d2021] border-b border-[#504945] sticky top-0 z-30">
+    <div class="max-w-[1440px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-[#fe8019] text-[#1d2021] font-mono font-bold text-sm flex items-center justify-center rounded-[3px] border border-[#fabd2f]">
+          3D
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-[#ebdbb2]">
+              PRECIFICAÇÃO DE PRODUÇÃO 3D
+            </h1>
+            <span class="text-[11px] font-mono uppercase px-2 py-0.5 bg-[#32302f] text-[#fabd2f] border border-[#504945] rounded-[2px]">
+              Anycubic Kobra X (260×260mm)
+            </span>
+          </div>
+          <p class="text-xs text-[#928374] font-mono">
+            Base Tarifária: Sepetiba / Rio de Janeiro (Light RJ) • ISO/IEC 7810 ID-1 &amp; Chaveiros
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="btn-export-csv" type="button" class="px-3 py-2 text-xs font-mono font-semibold bg-[#32302f] hover:bg-[#3c3836] text-[#83a598] border border-[#504945] rounded-[3px] transition cursor-pointer flex items-center gap-1.5">
+          <span>↓</span> EXPORTAR CSV
+        </button>
+        <button id="btn-reset" type="button" class="px-3 py-2 text-xs font-mono font-semibold bg-[#32302f] hover:bg-[#3c3836] text-[#d5c4a1] border border-[#504945] rounded-[3px] transition cursor-pointer">
+          RESTAURAR SEPETIBA/RJ
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="max-w-[1440px] w-full mx-auto px-4 py-5 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+    <!-- LEFT COLUMN: Workshop Parameters & Order Configurator (5 cols on lg) -->
+    <section class="lg:col-span-5 flex flex-col gap-5">
+
+      <!-- 1. CONFIGURADOR DO PEDIDO ATUAL -->
+      <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-4">
+        <div class="flex items-center justify-between border-b border-[#504945] pb-2.5 mb-3.5">
+          <h2 class="text-xs font-mono font-bold uppercase tracking-wider text-[#fe8019]">
+            01. Configurador do Pedido Atual
+          </h2>
+          <span id="preset-badge" class="text-[11px] font-mono text-[#b8bb26] bg-[#1d2021] px-2 py-0.5 border border-[#504945] rounded-[2px]">
+            85,6 × 54,0 mm
+          </span>
+        </div>
+
+        <!-- Product Preset Selector -->
+        <label class="block text-xs font-medium text-[#d5c4a1] mb-1.5">Modelo / Linha de Produto</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4" id="preset-buttons">
+          <button type="button" data-preset="cartao_simples" class="preset-btn text-left p-2.5 rounded-[3px] border transition cursor-pointer">
+            <div class="text-xs font-bold text-[#ebdbb2]">Cartão Relevo Simples</div>
+            <div class="text-[11px] font-mono text-[#928374] mt-0.5">10,27g • 12m • Pintado+Verniz</div>
+          </button>
+          <button type="button" data-preset="cartao_nfc" class="preset-btn text-left p-2.5 rounded-[3px] border transition cursor-pointer">
+            <div class="text-xs font-bold text-[#ebdbb2]">Cartão Inteligente NFC</div>
+            <div class="text-[11px] font-mono text-[#928374] mt-0.5">10,27g • 12m • Tag NTAG215</div>
+          </button>
+          <button type="button" data-preset="chaveiro" class="preset-btn text-left p-2.5 rounded-[3px] border transition cursor-pointer">
+            <div class="text-xs font-bold text-[#ebdbb2]">Chaveiro Personalizado</div>
+            <div class="text-[11px] font-mono text-[#928374] mt-0.5">8,50g • 10m • Argola+Verniz</div>
+          </button>
+          <button type="button" data-preset="custom" class="preset-btn text-left p-2.5 rounded-[3px] border transition cursor-pointer">
+            <div class="text-xs font-bold text-[#ebdbb2]">Produto Customizado</div>
+            <div class="text-[11px] font-mono text-[#928374] mt-0.5">Editar peso, tempo e insumos</div>
+          </button>
+        </div>
+
+        <!-- Technical Specs of Selected Product (Editable) -->
+        <div class="grid grid-cols-3 gap-2.5 bg-[#1d2021] p-3 border border-[#504945] rounded-[3px] mb-4">
+          <div>
+            <label for="inp-peso" class="block text-[11px] font-mono text-[#928374] mb-1">Peso/un (g)</label>
+            <input id="inp-peso" type="number" step="0.01" min="0.1" class="w-full bg-[#282828] border border-[#504945] focus:border-[#fe8019] text-[#ebdbb2] font-mono text-xs px-2 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="inp-tempo" class="block text-[11px] font-mono text-[#928374] mb-1">Tempo/un (min)</label>
+            <input id="inp-tempo" type="number" step="0.5" min="0.5" class="w-full bg-[#282828] border border-[#504945] focus:border-[#fe8019] text-[#ebdbb2] font-mono text-xs px-2 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="inp-insumos" class="block text-[11px] font-mono text-[#928374] mb-1">Insumos (R$)</label>
+            <input id="inp-insumos" type="number" step="0.05" min="0" class="w-full bg-[#282828] border border-[#504945] focus:border-[#fe8019] text-[#ebdbb2] font-mono text-xs px-2 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div class="col-span-3 pt-1 border-t border-[#32302f] flex flex-wrap justify-between items-center gap-2 text-[11px] font-mono text-[#d5c4a1]">
+            <span id="insumos-desc">Inclui: tinta acrílica + verniz spray fosco + saquinho OPP</span>
+            <span>Capacidade/mesa: <strong id="mesa-cap-label" class="text-[#fabd2f]">12 un.</strong></span>
+          </div>
+        </div>
+
+        <!-- Selling Unit Prices (Editable) -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <label for="inp-preco-direto" class="block text-[11px] font-mono text-[#b8bb26] mb-1">Preço Base Direto/PIX (R$/un)</label>
+            <input id="inp-preco-direto" type="number" step="0.10" min="0" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#b8bb26] text-[#ebdbb2] font-mono text-sm font-semibold px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="inp-preco-mkt" class="block text-[11px] font-mono text-[#83a598] mb-1">Preço Base Marketplace (R$/un)</label>
+            <input id="inp-preco-mkt" type="number" step="0.10" min="0" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#83a598] text-[#ebdbb2] font-mono text-sm font-semibold px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+        </div>
+
+        <!-- Order Quantity -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="inp-qtd" class="text-xs font-medium text-[#d5c4a1]">Quantidade do Pedido</label>
+            <div class="flex items-center gap-1.5">
+              <input id="inp-qtd" type="number" min="1" max="1000" value="20" class="w-20 bg-[#1d2021] border border-[#fe8019] text-[#fabd2f] font-mono text-sm font-bold px-2 py-1 rounded-[2px] text-right outline-none" />
+              <span class="text-xs font-mono text-[#928374]">unid.</span>
+            </div>
+          </div>
+          <input id="slider-qtd" type="range" min="1" max="150" value="20" class="mb-2.5" />
+          <div class="grid grid-cols-5 gap-1.5">
+            <button type="button" data-qtd="1" class="qtd-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] border border-[#504945] rounded-[2px] text-[#d5c4a1] cursor-pointer">1 un</button>
+            <button type="button" data-qtd="12" class="qtd-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] border border-[#504945] rounded-[2px] text-[#fabd2f] cursor-pointer" title="1 Mesa Cheia na Kobra X">12 (1 mesa)</button>
+            <button type="button" data-qtd="20" class="qtd-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] border border-[#504945] rounded-[2px] text-[#d5c4a1] cursor-pointer">20 un</button>
+            <button type="button" data-qtd="50" class="qtd-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] border border-[#504945] rounded-[2px] text-[#d5c4a1] cursor-pointer">50 un</button>
+            <button type="button" data-qtd="100" class="qtd-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] border border-[#504945] rounded-[2px] text-[#d5c4a1] cursor-pointer">100 un</button>
+          </div>
+        </div>
+
+        <!-- Direct Sale Package Discount -->
+        <div class="mb-3">
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="inp-desconto" class="text-xs font-medium text-[#d5c4a1]">Desconto Pacote (Venda Direta PIX)</label>
+            <span id="lbl-desconto" class="text-xs font-mono font-bold text-[#fe8019]">0% (Tabela Cheia)</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5">
+            <button type="button" data-desc="0" class="desc-btn py-1.5 text-xs font-mono bg-[#1d2021] border border-[#504945] rounded-[2px] cursor-pointer">0% Cheia</button>
+            <button type="button" data-desc="10" class="desc-btn py-1.5 text-xs font-mono bg-[#1d2021] border border-[#504945] rounded-[2px] cursor-pointer">10% Pacote</button>
+            <button type="button" data-desc="15" class="desc-btn py-1.5 text-xs font-mono bg-[#1d2021] border border-[#504945] rounded-[2px] cursor-pointer">15% Atacado</button>
+            <div class="relative">
+              <input id="inp-desconto" type="number" min="0" max="60" step="1" value="0" class="w-full h-full bg-[#1d2021] border border-[#504945] focus:border-[#fe8019] text-[#ebdbb2] font-mono text-xs px-2 py-1 rounded-[2px] text-center outline-none" title="Desconto personalizado (%)" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Production Estimate Strip -->
+        <div class="bg-[#1d2021] border border-[#504945] rounded-[3px] p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+          <div>
+            <span class="text-[#928374]">Mesas Kobra X:</span>
+            <strong id="out-mesas" class="text-[#fabd2f]">2 mesas (12 + 8)</strong>
+          </div>
+          <div>
+            <span class="text-[#928374]">Tempo Total:</span>
+            <strong id="out-tempo-total" class="text-[#83a598]">4h 00m (4,00 h)</strong>
+          </div>
+          <div>
+            <span class="text-[#928374]">Filamento:</span>
+            <strong id="out-peso-total" class="text-[#ebdbb2]">205,4 g</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. PARÂMETROS DA OFICINA (SEPETIBA / RJ) -->
+      <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-4">
+        <div class="flex items-center justify-between border-b border-[#504945] pb-2.5 mb-3.5">
+          <h2 class="text-xs font-mono font-bold uppercase tracking-wider text-[#fabd2f]">
+            02. Parâmetros da Oficina (Sepetiba/RJ)
+          </h2>
+          <span id="out-custo-kwh-hora" class="text-[11px] font-mono text-[#8ec07c] bg-[#1d2021] px-2 py-0.5 border border-[#504945] rounded-[2px]">
+            Energia: R$ 0,16/h
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div>
+            <label for="param-kwh" class="block font-mono text-[11px] text-[#928374] mb-1">Tarifa Light RJ (R$/kWh)</label>
+            <input id="param-kwh" type="number" step="0.01" min="0" value="1.18" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="param-watts" class="block font-mono text-[11px] text-[#928374] mb-1">Consumo Kobra X (Watts)</label>
+            <input id="param-watts" type="number" step="5" min="1" value="135" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="param-desgaste" class="block font-mono text-[11px] text-[#928374] mb-1">Desgaste Máquina (R$/h)</label>
+            <input id="param-desgaste" type="number" step="0.10" min="0" value="2.00" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="param-rolo" class="block font-mono text-[11px] text-[#928374] mb-1">Rolo Filamento 1kg (R$)</label>
+            <input id="param-rolo" type="number" step="1.00" min="1" value="85.00" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="param-perdas" class="block font-mono text-[11px] text-[#928374] mb-1">Margem de Falha/Perda (%)</label>
+            <input id="param-perdas" type="number" step="1" min="0" max="100" value="15" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+          <div>
+            <label for="param-mkt-taxa" class="block font-mono text-[11px] text-[#928374] mb-1">Taxa Marketplace (%)</label>
+            <input id="param-mkt-taxa" type="number" step="1" min="0" max="60" value="20" class="w-full bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono px-2.5 py-1.5 rounded-[2px] outline-none" />
+          </div>
+        </div>
+
+        <!-- 3D Modeling / Setup Fee -->
+        <div class="mt-3 pt-3 border-t border-[#504945] flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <label for="param-arte" class="font-mono text-[11px] text-[#d5c4a1]">Taxa Arte/Modelagem 3D (R$):</label>
+            <input id="param-arte" type="number" step="1" min="0" value="20.00" class="w-20 bg-[#1d2021] border border-[#504945] focus:border-[#fabd2f] text-[#ebdbb2] font-mono text-xs px-2 py-1 rounded-[2px] outline-none" />
+          </div>
+          <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+            <input id="chk-isentar-arte" type="checkbox" checked class="w-4 h-4 accent-[#b8bb26] rounded-[2px] cursor-pointer" />
+            <span class="text-xs font-mono text-[#b8bb26]">Isentar taxa de arte neste pedido</span>
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN: KPIs, Breakdown, Batch Table & WhatsApp Quote (7 cols on lg) -->
+    <section class="lg:col-span-7 flex flex-col gap-5">
+
+      <!-- 3. KPI CARDS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+        <!-- KPI 1: Unit Cost -->
+        <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-3.5 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-[#928374]">Custo Unitário Total</div>
+          <div id="kpi-custo-unit" class="text-2xl font-mono font-bold text-[#ebdbb2] my-1">R$ 1,90</div>
+          <div id="kpi-custo-unit-sub" class="text-[11px] font-mono text-[#d5c4a1]">Inclui 15% perda</div>
+        </div>
+
+        <!-- KPI 2: Batch Cost -->
+        <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-3.5 flex flex-col justify-between">
+          <div class="text-[11px] font-mono uppercase text-[#928374]">Custo Total do Pedido</div>
+          <div id="kpi-custo-total" class="text-2xl font-mono font-bold text-[#fb4934] my-1">R$ 38,00</div>
+          <div id="kpi-custo-total-sub" class="text-[11px] font-mono text-[#d5c4a1]">Para 20 unidades</div>
+        </div>
+
+        <!-- KPI 3: Direct Sale Price & Profit -->
+        <div class="bg-[#32302f] border-2 border-[#b8bb26] rounded-[4px] p-3.5 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono uppercase text-[#b8bb26] font-bold">Cobrar Direto (PIX)</span>
+            <span id="kpi-direto-unit" class="text-[11px] font-mono text-[#b8bb26]">R$ 5,00/un</span>
+          </div>
+          <div id="kpi-direto-total" class="text-2xl font-mono font-bold text-[#b8bb26] my-1">R$ 100,00</div>
+          <div id="kpi-direto-lucro" class="text-[11px] font-mono text-[#ebdbb2]">
+            Lucro: <strong class="text-[#b8bb26]">R$ 62,00</strong> (62,0%)
+          </div>
+        </div>
+
+        <!-- KPI 4: Marketplace Price & Profit -->
+        <div class="bg-[#32302f] border border-[#83a598] rounded-[4px] p-3.5 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono uppercase text-[#83a598] font-bold">Cobrar Marketplace</span>
+            <span id="kpi-mkt-unit" class="text-[11px] font-mono text-[#83a598]">R$ 6,50/un</span>
+          </div>
+          <div id="kpi-mkt-total" class="text-2xl font-mono font-bold text-[#83a598] my-1">R$ 130,00</div>
+          <div id="kpi-mkt-lucro" class="text-[11px] font-mono text-[#ebdbb2]">
+            Lucro: <strong class="text-[#83a598]">R$ 66,00</strong> (50,8%)
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. DECOMPOSIÇÃO DETALHADA DE CUSTOS -->
+      <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#504945] pb-2.5 mb-3">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-[#ebdbb2]">
+            03. Decomposição de Custos — <span id="title-produto-atual" class="text-[#fe8019]">Cartão Relevo Simples</span>
+          </h3>
+          <span class="text-[11px] font-mono text-[#928374]">Valores unitários vs. lote selecionado</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse font-mono text-xs">
+            <thead>
+              <tr class="border-b border-[#504945] text-[#928374] text-[11px]">
+                <th class="py-2 pr-3 font-medium">Componente de Custo</th>
+                <th class="py-2 px-3 font-medium">Base de Cálculo</th>
+                <th class="py-2 px-3 text-right font-medium">Unitário</th>
+                <th id="th-lote-qtd" class="py-2 pl-3 text-right font-medium text-[#fabd2f]">Pedido (20 un.)</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-breakdown" class="divide-y divide-[#3c3836]">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5. TABELA COMPARATIVA DE LOTES -->
+      <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#504945] pb-2.5 mb-3">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-[#ebdbb2]">
+            04. Tabela Rápida de Lotes (Escala de Produção)
+          </h3>
+          <span class="text-[11px] font-mono text-[#928374]">Clique em uma linha para carregar a quantidade</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse font-mono text-xs">
+            <thead>
+              <tr class="border-b border-[#504945] text-[#928374] text-[11px]">
+                <th class="py-2 pr-2 font-medium">Lote</th>
+                <th class="py-2 px-2 text-right font-medium">Custo Prod.</th>
+                <th class="py-2 px-2 text-right font-medium text-[#b8bb26]">Direto Cheio</th>
+                <th class="py-2 px-2 text-right font-medium text-[#fabd2f]">Direto 10% OFF</th>
+                <th class="py-2 pl-2 text-right font-medium text-[#83a598]">Marketplace</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-lotes" class="divide-y divide-[#3c3836]">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6. GERADOR DE ORÇAMENTO PARA WHATSAPP -->
+      <div class="bg-[#32302f] border border-[#504945] rounded-[4px] p-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#504945] pb-2.5 mb-3">
+          <div>
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-[#b8bb26]">
+              05. Orçamento Pronto para WhatsApp
+            </h3>
+            <p class="text-[11px] text-[#928374] mt-0.5">Texto comercial gerado automaticamente com base no pedido acima</p>
+          </div>
+          <button id="btn-copy-wpp" type="button" class="px-4 py-2 text-xs font-mono font-bold bg-[#b8bb26] hover:bg-[#98971a] text-[#1d2021] rounded-[3px] transition cursor-pointer flex items-center gap-2 shadow">
+            <span>📋</span> COPIAR ORÇAMENTO PARA WHATSAPP
+          </button>
+        </div>
+
+        <textarea id="wpp-preview" rows="9" readonly class="w-full bg-[#1d2021] border border-[#504945] text-[#ebdbb2] font-mono text-xs p-3 rounded-[3px] leading-relaxed outline-none resize-y"></textarea>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#1d2021] border-t border-[#504945] py-3 px-4 mt-6">
+    <div class="max-w-[1440px] mx-auto flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-[#928374]">
+      <span>Oficina 3D Sepetiba/RJ • Anycubic Kobra X (Mesa 260×260mm • 12 cartões ISO ID-1 por bandeja)</span>
+      <span>Acabamento: Alto-relevo 0,6mm • Caneta Acrílica + Selagem Verniz Spray Fosco</span>
+    </div>
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. DEFAULT CONFIGURATION & PRESETS (SEPETIBA / RJ - LIGHT RJ)
+    // =========================================================================
+    const STORAGE_KEY = 'oficina3d_sepetiba_kobrax_v1';
+
+    const PRESETS = {
+      cartao_simples: {
+        id: 'cartao_simples',
+        nome: 'Cartão Relevo Simples',
+        nomeCompleto: 'Cartão de Empresa 3D em Alto-Relevo (Pintado à mão + Verniz Fosco)',
+        dimensoes: '85,6 × 54,0 mm (1,6 mm base + 0,6 mm relevo)',
+        peso: 10.27,
+        tempo: 12,
+        insumos: 0.35,
+        insumosDesc: 'Tinta acrílica + verniz spray fosco + saquinho OPP',
+        precoDireto: 5.00,
+        precoMkt: 6.50,
+        capacidadeMesa: 12
+      },
+      cartao_nfc: {
+        id: 'cartao_nfc',
+        nome: 'Cartão Inteligente NFC',
+        nomeCompleto: 'Cartão Inteligente NFC 3D em Alto-Relevo (Tag NTAG215 Embutida + Pintura + Verniz)',
+        dimensoes: '85,6 × 54,0 mm (1,6 mm base + 0,6 mm relevo + Chip NFC)',
+        peso: 10.27,
+        tempo: 12,
+        insumos: 2.15,
+        insumosDesc: 'R$ 0,35 acabamento (tinta/verniz/OPP) + R$ 1,80 Tag NFC NTAG215',
+        precoDireto: 10.00,
+        precoMkt: 12.50,
+        capacidadeMesa: 12
+      },
+      chaveiro: {
+        id: 'chaveiro',
+        nome: 'Chaveiro Personalizado',
+        nomeCompleto: 'Chaveiro Personalizado 3D em Alto-Relevo (Pintado à mão + Verniz Fosco + Argola)',
+        dimensoes: '55,0 × 32,0 mm (3,0 mm base + 0,6 mm relevo)',
+        peso: 8.50,
+        tempo: 10,
+        insumos: 0.85,
+        insumosDesc: 'Argola/corrente metálica + tinta acrílica + verniz + embalagem',
+        precoDireto: 6.00,
+        precoMkt: 8.00,
+        capacidadeMesa: 20
+      },
+      custom: {
+        id: 'custom',
+        nome: 'Produto Customizado',
+        nomeCompleto: 'Peça Personalizada 3D em Alto-Relevo (Acabamento Pintado + Verniz Fosco)',
+        dimensoes: 'Sob medida (Anycubic Kobra X)',
+        peso: 15.00,
+        tempo: 18,
+        insumos: 0.50,
+        insumosDesc: 'Insumos personalizados de acabamento e embalagem',
+        precoDireto: 8.00,
+        precoMkt: 10.50,
+        capacidadeMesa: 8
+      }
+    };
+
+    const DEFAULT_STATE = {
+      presetId: 'cartao_simples',
+      peso: 10.27,
+      tempo: 12,
+      insumos: 0.35,
+      precoDireto: 5.00,
+      precoMkt: 6.50,
+      capacidadeMesa: 12,
+      qtd: 20,
+      desconto: 0,
+      // Workshop parameters (Sepetiba / RJ)
+      kwh: 1.18,
+      watts: 135,
+      desgaste: 2.00,
+      rolo: 85.00,
+      perdas: 15,
+      mktTaxa: 20,
+      taxaArte: 20.00,
+      isentarArte: true
+    };
+
+    let state = { ...DEFAULT_STATE };
+
+    // =========================================================================
+    // 2. FORMATTING HELPERS
+    // =========================================================================
+    function formatBRL(val) {
+      const num = Number.isFinite(val) ? val : 0;
+      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function formatPct(val) {
+      const num = Number.isFinite(val) ? val : 0;
+      return num.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%';
+    }
+
+    function formatHours(totalMinutes) {
+      const h = Math.floor(totalMinutes / 60);
+      const m = Math.round(totalMinutes % 60);
+      const dec = (totalMinutes / 60).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return `${h}h ${String(m).padStart(2, '0')}m (${dec} h)`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msgEl = document.getElementById('toast-msg');
+      msgEl.textContent = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    // =========================================================================
+    // 3. CORE PRICING CALCULATION ENGINE
+    // =========================================================================
+    function calculateForQuantity(qty, customDiscount = null) {
+      const q = Math.max(1, Math.round(qty));
+      const desc = customDiscount !== null ? customDiscount : state.desconto;
+
+      // Hourly energy cost: (Watts / 1000) * R$/kWh
+      const custoEnergiaHora = (state.watts / 1000) * state.kwh;
+
+      // Unit operational costs
+      const custoFilamentoUnit = (state.peso / 1000) * state.rolo;
+      const tempoHorasUnit = state.tempo / 60;
+      const custoEnergiaUnit = tempoHorasUnit * custoEnergiaHora;
+      const custoDesgasteUnit = tempoHorasUnit * state.desgaste;
+      const custoInsumosUnit = state.insumos;
+
+      const subtotalUnit = custoFilamentoUnit + custoEnergiaUnit + custoDesgasteUnit + custoInsumosUnit;
+      const reservaPerdaUnit = subtotalUnit * (state.perdas / 100);
+      const custoTotalUnit = subtotalUnit + reservaPerdaUnit;
+
+      // Batch costs
+      const custoFilamentoLote = custoFilamentoUnit * q;
+      const custoEnergiaLote = custoEnergiaUnit * q;
+      const custoDesgasteLote = custoDesgasteUnit * q;
+      const custoInsumosLote = custoInsumosUnit * q;
+      const subtotalLote = subtotalUnit * q;
+      const reservaPerdaLote = reservaPerdaUnit * q;
+      const custoTotalLote = custoTotalUnit * q;
+
+      // Setup / 3D Art fee (added to client price if not waived)
+      const arteAplicada = state.isentarArte ? 0 : state.taxaArte;
+
+      // Direct Sale (PIX)
+      const precoDiretoUnitComDesc = state.precoDireto * (1 - desc / 100);
+      const receitaDiretaLote = (precoDiretoUnitComDesc * q) + arteAplicada;
+      const lucroDiretoLote = receitaDiretaLote - custoTotalLote;
+      const margemDiretaPct = receitaDiretaLote > 0 ? (lucroDiretoLote / receitaDiretaLote) * 100 : 0;
+
+      // Direct Sale Full Price (0% discount) for batch comparison table
+      const receitaDiretaCheiaLote = (state.precoDireto * q) + arteAplicada;
+      const lucroDiretoCheioLote = receitaDiretaCheiaLote - custoTotalLote;
+
+      // Direct Sale 10% OFF for batch comparison table
+      const receitaDireta10Lote = (state.precoDireto * 0.90 * q) + arteAplicada;
+      const lucroDireto10Lote = receitaDireta10Lote - custoTotalLote;
+
+      // Marketplace Sale
+      const receitaMktBrutaLote = (state.precoMkt * q) + arteAplicada;
+      const taxaMktValorLote = receitaMktBrutaLote * (state.mktTaxa / 100);
+      const receitaMktLiquidaLote = receitaMktBrutaLote - taxaMktValorLote;
+      const lucroMktLote = receitaMktLiquidaLote - custoTotalLote;
+      const margemMktPct = receitaMktBrutaLote > 0 ? (lucroMktLote / receitaMktBrutaLote) * 100 : 0;
+
+      // Bed plates estimation
+      const cap = Math.max(1, state.capacidadeMesa);
+      const mesasCompletas = Math.floor(q / cap);
+      const sobraMesa = q % cap;
+      let mesasTexto = '';
+      if (q <= cap) {
+        mesasTexto = `1 mesa (${q}/${cap} un.)`;
+      } else if (sobraMesa === 0) {
+        mesasTexto = `${mesasCompletas} mesas cheias (${cap} un./cada)`;
+      } else {
+        mesasTexto = `${mesasCompletas + 1} mesas (${mesasCompletas}×${cap} + ${sobraMesa})`;
+      }
+
+      return {
+        q,
+        custoEnergiaHora,
+        custoFilamentoUnit,
+        custoEnergiaUnit,
+        custoDesgasteUnit,
+        custoInsumosUnit,
+        subtotalUnit,
+        reservaPerdaUnit,
+        custoTotalUnit,
+        custoFilamentoLote,
+        custoEnergiaLote,
+        custoDesgasteLote,
+        custoInsumosLote,
+        subtotalLote,
+        reservaPerdaLote,
+        custoTotalLote,
+        arteAplicada,
+        precoDiretoUnitComDesc,
+        receitaDiretaLote,
+        lucroDiretoLote,
+        margemDiretaPct,
+        receitaDiretaCheiaLote,
+        lucroDiretoCheioLote,
+        receitaDireta10Lote,
+        lucroDireto10Lote,
+        receitaMktBrutaLote,
+        taxaMktValorLote,
+        lucroMktLote,
+        margemMktPct,
+        mesasTexto,
+        tempoTotalMin: state.tempo * q,
+        pesoTotalG: state.peso * q
+      };
+    }
+
+    // =========================================================================
+    // 4. UI RENDERING & STATE SYNCHRONIZATION
+    // =========================================================================
+    function syncInputsFromState() {
+      document.getElementById('inp-peso').value = state.peso;
+      document.getElementById('inp-tempo').value = state.tempo;
+      document.getElementById('inp-insumos').value = state.insumos;
+      document.getElementById('inp-preco-direto').value = state.precoDireto;
+      document.getElementById('inp-preco-mkt').value = state.precoMkt;
+      document.getElementById('inp-qtd').value = state.qtd;
+      document.getElementById('slider-qtd').value = Math.min(150, state.qtd);
+      document.getElementById('inp-desconto').value = state.desconto;
+
+      document.getElementById('param-kwh').value = state.kwh;
+      document.getElementById('param-watts').value = state.watts;
+      document.getElementById('param-desgaste').value = state.desgaste;
+      document.getElementById('param-rolo').value = state.rolo;
+      document.getElementById('param-perdas').value = state.perdas;
+      document.getElementById('param-mkt-taxa').value = state.mktTaxa;
+      document.getElementById('param-arte').value = state.taxaArte;
+      document.getElementById('chk-isentar-arte').checked = state.isentarArte;
+    }
+
+    function renderAll() {
+      const preset = PRESETS[state.presetId] || PRESETS.custom;
+      const calc = calculateForQuantity(state.qtd);
+
+      // Update active preset styling
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        const isActive = btn.dataset.preset === state.presetId;
+        btn.className = isActive
+          ? 'preset-btn text-left p-2.5 rounded-[3px] border-2 border-[#fe8019] bg-[#1d2021] transition cursor-pointer'
+          : 'preset-btn text-left p-2.5 rounded-[3px] border border-[#504945] bg-[#282828] hover:bg-[#3c3836] transition cursor-pointer';
+      });
+
+      // Update active quantity quick buttons
+      document.querySelectorAll('.qtd-btn').forEach(btn => {
+        const isActive = Number(btn.dataset.qtd) === state.qtd;
+        btn.classList.toggle('border-[#fe8019]', isActive);
+        btn.classList.toggle('bg-[#3c3836]', isActive);
+        btn.classList.toggle('font-bold', isActive);
+      });
+
+      // Update active discount quick buttons
+      document.querySelectorAll('.desc-btn').forEach(btn => {
+        const isActive = Number(btn.dataset.desc) === state.desconto;
+        btn.className = isActive
+          ? 'desc-btn py-1.5 text-xs font-mono bg-[#fe8019] text-[#1d2021] font-bold border border-[#fabd2f] rounded-[2px] cursor-pointer'
+          : 'desc-btn py-1.5 text-xs font-mono bg-[#1d2021] hover:bg-[#3c3836] text-[#d5c4a1] border border-[#504945] rounded-[2px] cursor-pointer';
+      });
+
+      // Labels & Badges
+      document.getElementById('preset-badge').textContent = preset.dimensoes.split('(')[0].trim();
+      document.getElementById('insumos-desc').textContent = 'Inclui: ' + preset.insumosDesc;
+      document.getElementById('mesa-cap-label').textContent = `${state.capacidadeMesa} un.`;
+      document.getElementById('title-produto-atual').textContent = preset.nome;
+
+      const descLabel = state.desconto === 0
+        ? '0% (Tabela Cheia)'
+        : `${state.desconto}% OFF (-${formatBRL(state.precoDireto - calc.precoDiretoUnitComDesc)}/un)`;
+      document.getElementById('lbl-desconto').textContent = descLabel;
+
+      document.getElementById('out-mesas').textContent = calc.mesasTexto;
+      document.getElementById('out-tempo-total').textContent = formatHours(calc.tempoTotalMin);
+      document.getElementById('out-peso-total').textContent = `${calc.pesoTotalG.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} g`;
+      document.getElementById('out-custo-kwh-hora').textContent = `Energia: ${formatBRL(calc.custoEnergiaHora)}/h`;
+
+      // Update KPI Cards
+      document.getElementById('kpi-custo-unit').textContent = formatBRL(calc.custoTotalUnit);
+      document.getElementById('kpi-custo-unit-sub').textContent = `Base ${formatBRL(calc.subtotalUnit)} + ${state.perdas}% perda`;
+
+      document.getElementById('kpi-custo-total').textContent = formatBRL(calc.custoTotalLote);
+      document.getElementById('kpi-custo-total-sub').textContent = `Para ${calc.q} ${calc.q === 1 ? 'unidade' : 'unidades'}`;
+
+      document.getElementById('kpi-direto-unit').textContent = `${formatBRL(calc.precoDiretoUnitComDesc)}/un`;
+      document.getElementById('kpi-direto-total').textContent = formatBRL(calc.receitaDiretaLote);
+      const arteNoteDireto = calc.arteAplicada > 0 ? ` (+${formatBRL(calc.arteAplicada)} arte)` : '';
+      document.getElementById('kpi-direto-lucro').innerHTML = `Lucro: <strong class="text-[#b8bb26]">${formatBRL(calc.lucroDiretoLote)}</strong> (${formatPct(calc.margemDiretaPct)})${arteNoteDireto}`;
+
+      document.getElementById('kpi-mkt-unit').textContent = `${formatBRL(state.precoMkt)}/un`;
+      document.getElementById('kpi-mkt-total').textContent = formatBRL(calc.receitaMktBrutaLote);
+      document.getElementById('kpi-mkt-lucro').innerHTML = `Lucro: <strong class="text-[#83a598]">${formatBRL(calc.lucroMktLote)}</strong> (${formatPct(calc.margemMktPct)})`;
+
+      // Update Breakdown Table
+      document.getElementById('th-lote-qtd').textContent = `Pedido (${calc.q} un.)`;
+      const breakdownRows = [
+        {
+          label: 'Filamento (PETG / PLA)',
+          base: `${state.peso.toLocaleString('pt-BR')} g @ ${formatBRL(state.rolo)}/kg`,
+          unit: calc.custoFilamentoUnit,
+          lote: calc.custoFilamentoLote
+        },
+        {
+          label: 'Energia Elétrica (Light RJ)',
+          base: `${state.tempo} min @ ${formatBRL(calc.custoEnergiaHora)}/h (${state.watts}W)`,
+          unit: calc.custoEnergiaUnit,
+          lote: calc.custoEnergiaLote
+        },
+        {
+          label: 'Desgaste / Manutenção Kobra X',
+          base: `${state.tempo} min @ ${formatBRL(state.desgaste)}/h`,
+          unit: calc.custoDesgasteUnit,
+          lote: calc.custoDesgasteLote
+        },
+        {
+          label: 'Insumos & Acabamento Manual',
+          base: preset.id === 'cartao_nfc' ? 'Tinta + Verniz + OPP + Tag NFC' : 'Tinta acrílica + Verniz + Embalagem',
+          unit: calc.custoInsumosUnit,
+          lote: calc.custoInsumosLote
+        },
+        {
+          label: 'Subtotal Operacional',
+          base: 'Soma direta de produção',
+          unit: calc.subtotalUnit,
+          lote: calc.subtotalLote,
+          isSubtotal: true
+        },
+        {
+          label: `Reserva de Falha / Perdas (${state.perdas}%)`,
+          base: 'Cobertura de refugo e retrabalho',
+          unit: calc.reservaPerdaUnit,
+          lote: calc.reservaPerdaLote,
+          isWarning: true
+        },
+        {
+          label: 'CUSTO TOTAL DE PRODUÇÃO',
+          base: 'Piso mínimo sem prejuízo',
+          unit: calc.custoTotalUnit,
+          lote: calc.custoTotalLote,
+          isTotal: true
+        }
+      ];
+
+      const tbodyBreakdown = document.getElementById('tbody-breakdown');
+      tbodyBreakdown.innerHTML = breakdownRows.map(r => {
+        let rowClass = 'hover:bg-[#3c3836]/50';
+        let textClass = 'text-[#ebdbb2]';
+        if (r.isSubtotal) {
+          rowClass = 'bg-[#282828]/70 font-semibold';
+          textClass = 'text-[#d5c4a1]';
+        } else if (r.isWarning) {
+          textClass = 'text-[#fabd2f]';
+        } else if (r.isTotal) {
+          rowClass = 'bg-[#1d2021] font-bold border-t-2 border-[#504945]';
+          textClass = 'text-[#fe8019]';
+        }
+        return `
+          <tr class="${rowClass}">
+            <td class="py-2 pr-3 ${textClass}">${r.label}</td>
+            <td class="py-2 px-3 text-[11px] text-[#928374]">${r.base}</td>
+            <td class="py-2 px-3 text-right ${textClass}">${formatBRL(r.unit)}</td>
+            <td class="py-2 pl-3 text-right ${textClass}">${formatBRL(r.lote)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Update Batch Comparison Table (1, 12, 20, 50, 100)
+      const batchSizes = [1, 12, 20, 50, 100];
+      const tbodyLotes = document.getElementById('tbody-lotes');
+      tbodyLotes.innerHTML = batchSizes.map(size => {
+        const b = calculateForQuantity(size, 0);
+        const isCurrent = size === state.qtd;
+        const badge = size === 12 ? ' <span class="text-[10px] text-[#fabd2f]">(1 mesa)</span>' : '';
+        return `
+          <tr data-row-qtd="${size}" class="batch-row cursor-pointer transition ${isCurrent ? 'bg-[#1d2021] border-l-2 border-l-[#fe8019]' : 'hover:bg-[#3c3836]'}">
+            <td class="py-2.5 pr-2 font-bold text-[#ebdbb2]">${size} un.${badge}</td>
+            <td class="py-2.5 px-2 text-right text-[#fb4934]">${formatBRL(b.custoTotalLote)}</td>
+            <td class="py-2.5 px-2 text-right">
+              <div class="text-[#b8bb26] font-bold">${formatBRL(b.receitaDiretaCheiaLote)}</div>
+              <div class="text-[10px] text-[#928374]">Lucro ${formatBRL(b.lucroDiretoCheioLote)}</div>
+            </td>
+            <td class="py-2.5 px-2 text-right">
+              <div class="text-[#fabd2f] font-bold">${formatBRL(b.receitaDireta10Lote)}</div>
+              <div class="text-[10px] text-[#928374]">Lucro ${formatBRL(b.lucroDireto10Lote)}</div>
+            </td>
+            <td class="py-2.5 pl-2 text-right">
+              <div class="text-[#83a598] font-bold">${formatBRL(b.receitaMktBrutaLote)}</div>
+              <div class="text-[10px] text-[#928374]">Lucro ${formatBRL(b.lucroMktLote)}</div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Attach click handlers to batch comparison rows
+      document.querySelectorAll('.batch-row').forEach(row => {
+        row.addEventListener('click', () => {
+          state.qtd = Number(row.dataset.rowQtd);
+          syncInputsFromState();
+          saveState();
+          renderAll();
+        });
+      });
+
+      // Update WhatsApp Quote Preview
+      generateWhatsAppText(preset, calc);
+    }
+
+    function generateWhatsAppText(preset, calc) {
+      const prazoDias = calc.tempoTotalMin <= 360 ? '2 a 3 dias úteis' : '3 a 5 dias úteis';
+      const arteLinha = calc.arteAplicada > 0
+        ? `• Taxa única de modelagem 3D do logotipo: ${formatBRL(calc.arteAplicada)}\n`
+        : `• Modelagem 3D do logotipo: *ISENTA (Cortesia no pedido)*\n`;
+
+      const descontoLinha = state.desconto > 0
+        ? `• Desconto de pacote aplicado: *${state.desconto}% OFF* (de ${formatBRL(state.precoDireto)} por ${formatBRL(calc.precoDiretoUnitComDesc)}/un.)\n`
+        : `• Valor unitário: *${formatBRL(calc.precoDiretoUnitComDesc)}*\n`;
+
+      const texto =
+`*ORÇAMENTO — PERSONALIZADOS 3D*
+━━━━━━━━━━━━━━━━━━━━━━
+*Produto:* ${preset.nomeCompleto}
+*Dimensões:* ${preset.dimensoes}
+*Acabamento:* Alto-relevo pintado à mão com tinta acrílica e dupla selagem em verniz fosco protetor
+*Quantidade:* ${calc.q} ${calc.q === 1 ? 'unidade' : 'unidades'}
+
+*Investimento (Pagamento via PIX):*
+${descontoLinha}${arteLinha}• *TOTAL DO PEDIDO: ${formatBRL(calc.receitaDiretaLote)}*
+
+*Prazo estimado de produção:* ${prazoDias} após aprovação da arte.
+Qualquer dúvida ou ajuste na quantidade, estou à disposição!`;
+
+      document.getElementById('wpp-preview').value = texto;
+    }
+
+    // =========================================================================
+    // 5. PERSISTENCE (LOCALSTORAGE) & CSV EXPORT
+    // =========================================================================
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        // Ignore storage quota errors
+      }
+    }
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state = { ...DEFAULT_STATE, ...parsed };
+        }
+      } catch (e) {
+        state = { ...DEFAULT_STATE };
+      }
+    }
+
+    function exportCSV() {
+      const preset = PRESETS[state.presetId] || PRESETS.custom;
+      const lotes = [1, 10, 12, 20, 30, 50, 100];
+      const headers = [
+        'Produto',
+        'Quantidade',
+        'Peso Total (g)',
+        'Tempo Total (h)',
+        'Custo Unitario (R$)',
+        'Custo Total Lote (R$)',
+        'Venda Direta Cheia (R$)',
+        'Lucro Direto Cheio (R$)',
+        'Venda Direta 10% OFF (R$)',
+        'Lucro Direto 10% OFF (R$)',
+        'Venda Marketplace (R$)',
+        'Lucro Marketplace (R$)'
+      ];
+
+      const lines = [headers.join(';')];
+      lotes.forEach(q => {
+        const c = calculateForQuantity(q, 0);
+        const row = [
+          `"${preset.nome}"`,
+          q,
+          c.pesoTotalG.toFixed(2).replace('.', ','),
+          (c.tempoTotalMin / 60).toFixed(2).replace('.', ','),
+          c.custoTotalUnit.toFixed(2).replace('.', ','),
+          c.custoTotalLote.toFixed(2).replace('.', ','),
+          c.receitaDiretaCheiaLote.toFixed(2).replace('.', ','),
+          c.lucroDiretoCheioLote.toFixed(2).replace('.', ','),
+          c.receitaDireta10Lote.toFixed(2).replace('.', ','),
+          c.lucroDireto10Lote.toFixed(2).replace('.', ','),
+          c.receitaMktBrutaLote.toFixed(2).replace('.', ','),
+          c.lucroMktLote.toFixed(2).replace('.', ',')
+        ];
+        lines.push(row.join(';'));
+      });
+
+      const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `tabela_precificacao_3d_${preset.id}_sepetiba.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Tabela CSV exportada com sucesso!');
+    }
+
+    // =========================================================================
+    // 6. EVENT LISTENERS INITIALIZATION
+    // =========================================================================
+    function bindEvents() {
+      // Preset buttons
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.preset;
+          const p = PRESETS[id];
+          if (!p) return;
+          state.presetId = id;
+          state.peso = p.peso;
+          state.tempo = p.tempo;
+          state.insumos = p.insumos;
+          state.precoDireto = p.precoDireto;
+          state.precoMkt = p.precoMkt;
+          state.capacidadeMesa = p.capacidadeMesa;
+          syncInputsFromState();
+          saveState();
+          renderAll();
+        });
+      });
+
+      // Product numeric fields
+      const bindNumber = (id, key, minVal = 0) => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', () => {
+          const val = parseFloat(el.value);
+          state[key] = Number.isFinite(val) ? Math.max(minVal, val) : minVal;
+          if (id === 'inp-qtd') {
+            document.getElementById('slider-qtd').value = Math.min(150, state.qtd);
+          }
+          saveState();
+          renderAll();
+        });
+      };
+
+      bindNumber('inp-peso', 'peso', 0.01);
+      bindNumber('inp-tempo', 'tempo', 0.1);
+      bindNumber('inp-insumos', 'insumos', 0);
+      bindNumber('inp-preco-direto', 'precoDireto', 0);
+      bindNumber('inp-preco-mkt', 'precoMkt', 0);
+      bindNumber('inp-qtd', 'qtd', 1);
+      bindNumber('inp-desconto', 'desconto', 0);
+
+      bindNumber('param-kwh', 'kwh', 0);
+      bindNumber('param-watts', 'watts', 1);
+      bindNumber('param-desgaste', 'desgaste', 0);
+      bindNumber('param-rolo', 'rolo', 1);
+      bindNumber('param-perdas', 'perdas', 0);
+      bindNumber('param-mkt-taxa', 'mktTaxa', 0);
+      bindNumber('param-arte', 'taxaArte', 0);
+
+      // Quantity Slider
+      const sliderQtd = document.getElementById('slider-qtd');
+      sliderQtd.addEventListener('input', () => {
+        state.qtd = Number(sliderQtd.value);
+        document.getElementById('inp-qtd').value = state.qtd;
+        saveState();
+        renderAll();
+      });
+
+      // Quantity Quick Buttons
+      document.querySelectorAll('.qtd-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.qtd = Number(btn.dataset.qtd);
+          syncInputsFromState();
+          saveState();
+          renderAll();
+        });
+      });
+
+      // Discount Quick Buttons
+      document.querySelectorAll('.desc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.desconto = Number(btn.dataset.desc);
+          document.getElementById('inp-desconto').value = state.desconto;
+          saveState();
+          renderAll();
+        });
+      });
+
+      // Waive Art Fee Checkbox
+      const chkArte = document.getElementById('chk-isentar-arte');
+      chkArte.addEventListener('change', () => {
+        state.isentarArte = chkArte.checked;
+        saveState();
+        renderAll();
+      });
+
+      // Copy WhatsApp Quote (using execCommand fallback for iFrame safety)
+      document.getElementById('btn-copy-wpp').addEventListener('click', () => {
+        const textarea = document.getElementById('wpp-preview');
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        try {
+          document.execCommand('copy');
+          showToast('Orçamento copiado! Cole direto no WhatsApp.');
+        } catch (err) {
+          showToast('Selecione o texto acima e pressione Ctrl+C.');
+        }
+      });
+
+      // Export CSV
+      document.getElementById('btn-export-csv').addEventListener('click', exportCSV);
+
+      // Reset to Sepetiba/RJ Defaults
+      document.getElementById('btn-reset').addEventListener('click', () => {
+        state = { ...DEFAULT_STATE };
+        syncInputsFromState();
+        saveState();
+        renderAll();
+        showToast('Padrões de Sepetiba/RJ restaurados!');
+      });
+    }
+
+    // Boot application
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      syncInputsFromState();
+      bindEvents();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
